@@ -7,7 +7,8 @@ function App() {
   const [currentPrice, setCurrentPrice] = useState(0);
   const [result, setResult] = useState("");
 
-  const calculate = () => {
+  const calculate = (event) => {
+      event.preventDefault();
       const profit  = (currentPrice - intialPrice) * stockQuantity;
       const profitPercentage = (Math.abs(profit) / intialPrice) * 100;
       if(profit < 0) {
@@ -24,21 +25,24 @@ function App() {
       <div>
         <h1 className="label">Stock Profile & Loss Calculator</h1>
       </div>
+      <form onSubmit={calculate}>
       <div className="input-section">
         <h3 className="label">Intial Price</h3>
         <input type="number"  className="input-field" id="initial-price" name="initial-price"  onChange= {(event) => setIntialPrice(event.target.value)} />
       </div>
       <div className="input-section">
         <h3 className="label">Quantity of Stocks</h3>
-        <input type="number"  className="input-field" id="stocks" name="stocks" onChange= {(event) => setStockQuantity(event.target.value)} />
+        <input type="number" min="0" className="input-field" id="stocks" name="stocks" onChange= {(event) => setStockQuantity(event.target.value)} />
       </div>
       <div className="input-section">
         <h3 className="label">Current Price</h3>
         <input type="number"  className="input-field" id="current-price" name="current-price" onChange= {(event) => setCurrentPrice(event.target.value)} />
       </div>
       <div>
-        <button onClick={calculate}>Tell me!!!</button>
+        <button>Tell me!!!</button>
       </div>
+      </form>
+      
       <div className="result-section">
         <h2>{result}</h2>
       </div>
